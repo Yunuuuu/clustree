@@ -387,11 +387,11 @@ clustree.data.frame <- function(x, prefix, ...) {
 #' @rdname clustree
 #' @export
 clustree.SingleCellExperiment <- function(x, prefix, exprs = "counts", ...) {
-
     if (!requireNamespace("SingleCellExperiment", quietly = TRUE)) {
         stop("The SingleCellExperiment package is missing, this must be",
-             "installed for clustree to use SingleCellExperiment objects",
-             call. = FALSE)
+            "installed for clustree to use SingleCellExperiment objects",
+            call. = FALSE
+        )
     }
 
     checkmate::assert_class(x, "SingleCellExperiment")
@@ -399,7 +399,9 @@ clustree.SingleCellExperiment <- function(x, prefix, exprs = "counts", ...) {
 
     if (!(exprs %in% names(x@assays))) {
         stop("exprs must be the name of an assay in x: ",
-             paste0(names(x@assays), collapse = ", "), call. = FALSE)
+            paste0(names(x@assays), collapse = ", "),
+            call. = FALSE
+        )
     } else {
         exprs_mat <- SummarizedExperiment::assay(x, exprs)
     }
@@ -424,7 +426,9 @@ clustree.SingleCellExperiment <- function(x, prefix, exprs = "counts", ...) {
         }
     }
 
-    args$x <- data.frame(x@colData)
+    args$x <- data.frame(x@colData,
+        stringsAsFactors = FALSE, check.names = FALSE
+    )
     args$prefix <- prefix
 
     do.call(clustree, args)

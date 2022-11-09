@@ -82,7 +82,9 @@ get_tree_nodes <- function(clusterings, prefix, metadata, node_aes_list) {
                                            metadata, is_cluster)
             }
 
-            node_data <- data.frame(node_data, stringsAsFactors = FALSE)
+            node_data <- data.frame(
+                node_data, stringsAsFactors = FALSE, check.names = FALSE
+            )
 
             return(node_data)
         })
